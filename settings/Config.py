@@ -32,15 +32,17 @@ def config(isDebug = False):
     # Set workspace dir. 
     workspaceDir: str = ""
     if not os.getenv("WORKSPACE") == "":
-        workspaceDir = str(os.getenv("WORKSPACE"))
+        workspaceDir = str(Path(os.getenv("WORKSPACE")))
 
 
     config.add_section('Paths') 
     config.set("Paths","WORKSPACE",             workspaceDir)
-    config.set("Paths","COMFYUI_DIR",           config.get("Paths", "WORKSPACE") +"\\ComfyUI")
-    config.set("Paths","COMFYUI_MODELS_DIR",    config.get("Paths", "COMFYUI_DIR") +"\\models")
-    config.set("Paths","COMFYUI_NODES_DIR",     config.get("Paths", "COMFYUI_DIR") + "\\custom_nodes",)
-    config.set("Paths","REPO_DIR",              config.get("Paths", "WORKSPACE") + "\\RunpodComfy")
+
+
+    config.set("Paths","COMFYUI_DIR",           str(Path(config.get("Paths", "WORKSPACE") +"\\ComfyUI")))
+    config.set("Paths","COMFYUI_MODELS_DIR",    str(Path(config.get("Paths", "COMFYUI_DIR") +"\\models")))
+    config.set("Paths","COMFYUI_NODES_DIR",     str(Path(config.get("Paths", "COMFYUI_DIR") + "\\custom_nodes",)))
+    config.set("Paths","REPO_DIR",              str(Path(config.get("Paths", "WORKSPACE") + "\\RunpodComfy")))
     
     # # Write the configuration to a file
     # log("Writing configuration to file", "DEBUG")
