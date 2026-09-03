@@ -64,7 +64,7 @@ def main(dryRun=False):
     ] # TODO Are there more locations? 
 
     for d in knownComfyLocations:
-        if Path.is_dir(d):
+        if Path.is_dir(Path(d)):
             settings.set("Paths","WORKSPACE", str(d))
             break
     else:
