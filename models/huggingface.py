@@ -22,8 +22,9 @@ def hugginface_downloadModel(model: str, settings:ConfigParser, dryRun=False):
 
 
         dryRun_results = huggingface_hub.hf_hub_download(repo_id=repo, filename=path, local_dir=model_dir, dry_run=dryRun)
-        log("DryRun results: ", "DEBUG")
-        log(str(dryRun_results), "DEBUG")
+        if dryRun:
+            log("DryRun results: ", "DEBUG")
+            log(str(dryRun_results), "DEBUG")
         pass
 
     pass
