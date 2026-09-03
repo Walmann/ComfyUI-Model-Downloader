@@ -16,8 +16,8 @@ def modelInstaller(modelList: list, settings: configparser.ConfigParser, dryRun=
     if "minimaxh3" in modelList:
         log("Installing MiniMaxH3")
         log("SKIPPING: NODES NOT IMPLEMENTED YET!", "WARNING")
-        # nodes = get_repo_section("MiniMaxH3")
-        # Install_nodes(settings=setting, nodes=nodes)
+        nodes = get_repo_section("MiniMaxH3")
+        Install_nodes(settings=setting, nodes=nodes)
 
         log("Downloading MiniMaxH3 models")
         huggingface.hugginface_downloadModel(model="MiniMaxH3", settings=setting, dryRun=dryRun)
