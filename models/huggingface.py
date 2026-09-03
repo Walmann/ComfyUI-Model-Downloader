@@ -17,6 +17,11 @@ def hugginface_downloadModel(model: str, settings:ConfigParser, dryRun=False):
         path = i["path"]
         subdir = i["subdir"]
 
+        # If subdir is included in path, remove subdir. 
+        if path[:len(subdir)] == subdir:
+            subdir = ""
+
+
         temp = settings["Paths"]["COMFYUI_MODELS_DIR"]
         model_dir = str(Path(settings["Paths"]["COMFYUI_MODELS_DIR"],  subdir))
 
