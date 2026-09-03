@@ -85,6 +85,6 @@ def main(dryRun=False):
 
 
 if __name__ == "__main__":
-    main(dryRun=True)
+    main(dryRun=False)
 
     pass
