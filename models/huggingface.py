@@ -1,0 +1,37 @@
+import huggingface_hub
+from configparser import ConfigParser
+from pathlib import Path
+
+from models import model_registry
+from common import log
+
+
+def hugginface_downloadModel(model: str, settings:ConfigParser, dryRun=False):
+    # TODO Create multi-Thread downloading.
+
+    modelList = model_registry()
+    for item in modelList[model]:
+        i = modelList[model][item]
+        name = item
+        repo = i["repo"]
+        path = i["path"]
+        subdir = i["subdir"]
+
+        temp = settings["Paths"]["COMFYUI_MODELS_DIR"]
+        model_dir = str(Path(settings["Paths"]["COMFYUI_MODELS_DIR"],  subdir))
+
+
+        dryRun_results = huggingface_hub.hf_hub_download(repo_id=repo, filename=path, local_dir=model_dir, dry_run=dryRun)
+        log("DryRun results: ", "DEBUG")
+        log(str(dryRun_results), "DEBUG")
+        pass
+
+    pass
+
+
+
+
+if __name__ == "__main__":
+    from model_registry import model_registry
+    from settings import config
+    hugginface_downloadModel(model="MiniMaxH3", settings=config(isDebug=True), dryRun=True)
