@@ -57,7 +57,7 @@ def config(isDebug = False):
 
     # Set workspace dir. 
     workspaceDir: str = ""
-    if not os.getenv("WORKSPACE") == "":
+    if not os.getenv("WORKSPACE") == "" and isDebug is False:
         log("Trying to find ComfyUI folder using know locations")
         knownComfyLocations= [
             "/workspace",
