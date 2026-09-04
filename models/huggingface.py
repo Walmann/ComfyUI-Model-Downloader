@@ -17,12 +17,13 @@ def hugginface_downloadModel(model: str, settings:ConfigParser, dryRun=False):
         path = i["path"]
         subdir = i["subdir"]
 
-        # If subdir is included in path, remove subdir. 
+        # If subdir is included in path, remove subdir from path. 
         if path[:len(subdir)] == subdir:
-            subdir = ""
+            path = path[len(subdir)+1:]
+            # subdir = ""
 
         # Add the modelname to the path, for easier organisation
-        subdir = Path(model, subdir)
+        subdir = Path(subdir, model)
 
         temp = settings["Paths"]["COMFYUI_MODELS_DIR"]
         model_dir = str(Path(settings["Paths"]["COMFYUI_MODELS_DIR"],  subdir))
