@@ -29,7 +29,7 @@ def modelInstaller(modelList: list, settings: configparser.ConfigParser, dryRun=
                 log(f"Could not find {m} in model database!", "ERROR")
                 sys.exit()
         except Exception as e:
-            log(f"ERROR INSTALLING MODEL ${m}", "ERROR")
+            log(f"ERROR INSTALLING MODEL {m}", "ERROR")
             log(e)
             sys.exit()
 
