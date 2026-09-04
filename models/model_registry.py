@@ -64,7 +64,24 @@ def model_registry():
                 "path": "vae_approx/taeh3.safetensors",
                 "subdir": "vae_approx",
             },
-        }
+        },
+        "Krea2": {
+            "krea2_turbo_fp8_scaled.safetensors": {
+                "repo": "Comfy-Org/Krea-2",
+                "path": "diffusion_models/krea2_turbo_fp8_scaled.safetensors",
+                "subdir": "diffusion_models",
+            },
+            "qwen3vl_4b_fp8_scaled.safetensors": {
+                "repo": "Comfy-Org/Krea-2",
+                "path": "text_encoders/qwen3vl_4b_fp8_scaled.safetensors",
+                "subdir": "text_encoders",
+            },
+            "qwen_image_vae.safetensors": {
+                "repo": "Comfy-Org/Krea-2",
+                "path": "/vae/qwen_image_vae.safetensors",
+                "subdir": "vae",
+            }
+        },
     }
     return models
 
