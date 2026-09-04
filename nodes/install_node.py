@@ -16,10 +16,10 @@ from nodes import node_registry
 ### Install nodes
 def Install_node(settings: ConfigParser, node_info:str):
 
-    log("Installing node ${node[0]}")
+    log(f"Installing node {node_info[0]}")
     repo: Repo = git_installer.install(repo=node_info[1], dir=Path(settings["Paths"]["COMFYUI_NODES_DIR"]))
 
-    log("Installing requirements for node: ${node[0]}")
+    log(f"Installing requirements for node: {node_info[0]}")
     requirements = Path(repo.working_dir, "\\requirements.txt")
     pipInstall_file(req_file=requirements)
     pass
