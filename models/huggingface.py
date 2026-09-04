@@ -14,19 +14,19 @@ def hugginface_downloadModel(model: str, settings:ConfigParser, dryRun=False):
         i = modelList[model][item]
         name = item
         repo = i["repo"]
-        path = i["path"]
-        subdir = i["subdir"]
+        path = i["path"] # Path on huggingface
+        subdir = i["subdir"] # Subdir on local system
 
         # If subdir is included in path, remove subdir from path. 
-        if path[:len(subdir)] == subdir:
-            path = path[len(subdir)+1:]
-            # subdir = ""
+        # if path[:len(subdir)] == subdir:
+        #     # path = path[len(subdir)+1:]
+        #     subdir = ""
 
         # Add the modelname to the path, for easier organisation
-        subdir = Path(subdir, model)
+        # subdir = Path(subdir, model)
 
-        temp = settings["Paths"]["COMFYUI_MODELS_DIR"]
-        model_dir = str(Path(settings["Paths"]["COMFYUI_MODELS_DIR"],  subdir))
+        # temp = str(Path(settings["Paths"]["COMFYUI_MODELS_DIR"], subdir, model))
+        model_dir = str(Path(settings["Paths"]["COMFYUI_MODELS_DIR"], subdir, model))
 
         log(f"Model is being downloaded to: {model_dir}", "DEBUG")
         dryRun_results = huggingface_hub.hf_hub_download(repo_id=repo, filename=path, local_dir=model_dir, dry_run=dryRun)
