@@ -3,7 +3,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from log import log
+from .log import log
 
 
 def pipInstall(modules:list):
