@@ -6,6 +6,8 @@ from textual.widgets.selection_list import Selection
 from common import log
 from settings import config
 from models import modelInstaller
+from installers import huggingface_setup
+
 
 class MultiSelectApp(App):
     def compose(self) -> ComposeResult:
@@ -39,7 +41,8 @@ def main(dryRun=False):
         log("We are not in a Venv. #TODO Handle this. We should be in a Venv, if some models require custom nodes.", "WARNING")
 
 
-
+    log("Authenticating with Huggingface")
+    huggingface_setup()
 
     log("Starting UI for downloading models.")
     app = MultiSelectApp()

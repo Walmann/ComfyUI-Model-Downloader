@@ -4,8 +4,13 @@ import os
 from common import log
 
 
-def huggingface():
-    log("Authenticating with Huggingface", "DEBUG")
+def huggingface_setup():
+    log("Authenticating with Huggingface")
+
+    if os.getenv("HF_TOKEN") == None:
+        os.environ["HF_TOKEN"] = input("Huggingface API key not found in Enviorment variable. Please paste key: ")
+
+
     login(os.getenv("HF_TOKEN"))
     log(str(whoami(token=os.getenv("HF_TOKEN"))), "DEBUG")
     log(str(auth_list()),"DEBUG")
@@ -16,4 +21,4 @@ def huggingface():
 if __name__ == "__main__":
     from dotenv import load_dotenv
     load_dotenv()
-    huggingface()
+    huggingface_setup()
