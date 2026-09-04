@@ -78,7 +78,7 @@ def model_registry():
             },
             "qwen_image_vae.safetensors": {
                 "repo": "Comfy-Org/Krea-2",
-                "path": "/vae/qwen_image_vae.safetensors",
+                "path": "vae/qwen_image_vae.safetensors",
                 "subdir": "vae",
             }
         },
