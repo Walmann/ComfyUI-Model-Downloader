@@ -13,7 +13,7 @@ from common.log import log
 class __FolderPickerApp(App):
     def compose(self) -> ComposeResult:
         yield Label("Velg en mappe:")
-        yield DirectoryTree(Path.home())  # startsti her
+        yield DirectoryTree(Path("/"))  # startsti her
         with Horizontal():
             yield Label("", id="chosen")
             yield Button("Bekreft", variant="primary", id="ok")
