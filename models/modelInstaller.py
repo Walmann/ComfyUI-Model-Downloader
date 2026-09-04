@@ -22,7 +22,7 @@ def modelInstaller(modelList: list, settings: configparser.ConfigParser, dryRun=
                 log(f"Could not find {m} in node database! This is fine.")
 
             try:
-                log("Downloading {m} models")
+                log(f"Downloading {m} models")
                 huggingface.hugginface_downloadModel(model=m, settings=setting, dryRun=dryRun)
                 pass
             except KeyError as e: 
