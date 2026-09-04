@@ -66,17 +66,17 @@ def config(isDebug = False):
 
         for d in knownComfyLocations:
             if Path.is_dir(Path(d)):
-                workspaceDir = str(d)
+                os.environ["WORKSPACE"] = str(d)
                 break
         else:
             log("Workspace not found! Please select workspace folder! (The folder containing ComfyUI folder)")
             selectedFolder = __FolderPickerApp().run()
-            workspaceDir =  str(selectedFolder)
+            os.environ["WORKSPACE"] =  str(selectedFolder)
             pass
-
+        
 
     
-    config.set("Paths","WORKSPACE",             workspaceDir)
+    config.set("Paths","WORKSPACE",             str(os.getenv("WORKSPACE")))
     config.set("Paths","COMFYUI_DIR",           str(Path(config.get("Paths", "WORKSPACE") +"/ComfyUI")))
     config.set("Paths","COMFYUI_MODELS_DIR",    str(Path(config.get("Paths", "COMFYUI_DIR") +"/models")))
     config.set("Paths","COMFYUI_NODES_DIR",     str(Path(config.get("Paths", "COMFYUI_DIR") + "/custom_nodes",)))
