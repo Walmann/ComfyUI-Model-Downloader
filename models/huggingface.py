@@ -21,6 +21,8 @@ def hugginface_downloadModel(model: str, settings:ConfigParser, dryRun=False):
         if path[:len(subdir)] == subdir:
             subdir = ""
 
+        # Add the modelname to the path, for easier organisation
+        subdir = Path(model, subdir)
 
         temp = settings["Paths"]["COMFYUI_MODELS_DIR"]
         model_dir = str(Path(settings["Paths"]["COMFYUI_MODELS_DIR"],  subdir))
