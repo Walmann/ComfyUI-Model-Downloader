@@ -53,10 +53,9 @@ def config(isDebug = False):
     config.set("Ports","JUPYTER_PORT", os.getenv("JUPYTER_PORT", "8888"))
 
 
-    config.add_section('Paths') 
+    
 
     # Set workspace dir. 
-    temp = os.getenv("WORKSPACE")
     if os.getenv("WORKSPACE") == None:# and isDebug is False:
         log("Trying to find ComfyUI folder using know locations")
         knownComfyLocations= [
@@ -76,11 +75,11 @@ def config(isDebug = False):
                 selectedFolder = __FolderPickerApp().run()
             os.environ["WORKSPACE"] =  str(selectedFolder)
 
-        log(os.getenv("WORKSPACE"))
         pass
         
+    log(f"Current WORKSPACE enviorment variable: {os.getenv("WORKSPACE")}")
 
-    
+    config.add_section('Paths') 
     config.set("Paths","WORKSPACE",             str(os.getenv("WORKSPACE")))
     config.set("Paths","COMFYUI_DIR",           str(Path(config.get("Paths", "WORKSPACE") +"/ComfyUI")))
     config.set("Paths","COMFYUI_MODELS_DIR",    str(Path(config.get("Paths", "COMFYUI_DIR") +"/models")))
