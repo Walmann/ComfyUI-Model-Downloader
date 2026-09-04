@@ -1,9 +1,7 @@
 import sys
 from textual.app import App, ComposeResult
-from textual.widgets import SelectionList, Button, DirectoryTree, Label
+from textual.widgets import SelectionList, Button
 from textual.widgets.selection_list import Selection
-from textual.containers import Horizontal
-from pathlib import Path
 
 from common import log
 from settings import config
@@ -21,28 +19,12 @@ class MultiSelectApp(App):
     def on_button_pressed(self, event: Button.Pressed) -> None:
 
         # Hent alle valgte verdier
-        selected = self.query_one(SelectionList).selected
+        selected: list[str] = self.query_one(SelectionList).selected
         print(f"Valgte elementer: {selected}")  # f.eks. ['apple', 'cherry']
         self.exit(selected )
+    
 
-class FolderPickerApp(App):
-    def compose(self) -> ComposeResult:
-        yield Label("Velg en mappe:")
-        yield DirectoryTree(Path.home())  # startsti her
-        with Horizontal():
-            yield Label("", id="chosen")
-            yield Button("Bekreft", variant="primary", id="ok")
 
-    def on_directory_tree_directory_selected(
-        self, event: DirectoryTree.DirectorySelected
-    ) -> None:
-        # Kalles hver gang brukeren trykker Enter/dobbeltklikker på en mappe
-        self.chosen_path = event.path
-        self.query_one("#chosen", Label).update(str(event.path))
-
-    def on_button_pressed(self, event: Button.Pressed) -> None:
-        if hasattr(self, "chosen_path"):
-            self.exit(self.chosen_path)  # returnerer valgt mappe fra app.run()
 
 
 def main(dryRun=False):
@@ -57,25 +39,11 @@ def main(dryRun=False):
         log("We are not in a Venv. #TODO Handle this. We should be in a Venv, if some models require custom nodes.", "WARNING")
 
 
-    log("Trying to find ComfyUI folder using know locations")
-    knownComfyLocations= [
-        "/workspace",
-        "/workspace/runpod-slim"
-    ] # TODO Are there more locations? 
 
-    for d in knownComfyLocations:
-        if Path.is_dir(Path(d)):
-            settings.set("Paths","WORKSPACE", str(d))
-            break
-    else:
-        log("Workspace not found! Please select workspace folder! (The folder containing ComfyUI folder)")
-        selectedFolder = FolderPickerApp().run()
-        settings.set("Paths","WORKSPACE", str(selectedFolder))
-        pass
 
     log("Starting UI for downloading models.")
     app = MultiSelectApp()
-    modelList = app.run()
+    modelList: list = app.run()
 
     log("Installing models")
     modelInstaller(modelList= modelList, settings=settings, dryRun=dryRun)

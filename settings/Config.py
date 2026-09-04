@@ -2,8 +2,32 @@ import configparser
 import os
 from pathlib import Path
 
+from textual.app import App, ComposeResult
+from textual.widgets import Button, DirectoryTree, Label
+from textual.containers import Horizontal
+
+
 from common.log import log
 
+
+class __FolderPickerApp(App):
+    def compose(self) -> ComposeResult:
+        yield Label("Velg en mappe:")
+        yield DirectoryTree(Path.home())  # startsti her
+        with Horizontal():
+            yield Label("", id="chosen")
+            yield Button("Bekreft", variant="primary", id="ok")
+
+    def on_directory_tree_directory_selected(
+        self, event: DirectoryTree.DirectorySelected
+    ) -> None:
+        # Kalles hver gang brukeren trykker Enter/dobbeltklikker på en mappe
+        self.chosen_path = event.path
+        self.query_one("#chosen", Label).update(str(event.path))
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if hasattr(self, "chosen_path"):
+            self.exit(self.chosen_path)  # returnerer valgt mappe fra app.run()
 
 def config(isDebug = False):
     config = configparser.ConfigParser()
@@ -29,16 +53,30 @@ def config(isDebug = False):
     config.set("Ports","JUPYTER_PORT", os.getenv("JUPYTER_PORT", "8888"))
 
 
+    config.add_section('Paths') 
+
     # Set workspace dir. 
     workspaceDir: str = ""
     if not os.getenv("WORKSPACE") == "":
-        workspaceDir = str(Path(os.getenv("WORKSPACE")))
+        log("Trying to find ComfyUI folder using know locations")
+        knownComfyLocations= [
+            "/workspace",
+            "/workspace/runpod-slim"
+        ] # TODO Are there more locations? 
+
+        for d in knownComfyLocations:
+            if Path.is_dir(Path(d)):
+                workspaceDir = str(d)
+                break
+        else:
+            log("Workspace not found! Please select workspace folder! (The folder containing ComfyUI folder)")
+            selectedFolder = __FolderPickerApp().run()
+            workspaceDir =  str(selectedFolder)
+            pass
 
 
-    config.add_section('Paths') 
+    
     config.set("Paths","WORKSPACE",             workspaceDir)
-
-
     config.set("Paths","COMFYUI_DIR",           str(Path(config.get("Paths", "WORKSPACE") +"/ComfyUI")))
     config.set("Paths","COMFYUI_MODELS_DIR",    str(Path(config.get("Paths", "COMFYUI_DIR") +"/models")))
     config.set("Paths","COMFYUI_NODES_DIR",     str(Path(config.get("Paths", "COMFYUI_DIR") + "/custom_nodes",)))
