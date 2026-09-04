@@ -56,11 +56,11 @@ def config(isDebug = False):
     config.add_section('Paths') 
 
     # Set workspace dir. 
-    workspaceDir: str = ""
-    if not os.getenv("WORKSPACE") == "" and isDebug is False:
+    temp = os.getenv("WORKSPACE")
+    if os.getenv("WORKSPACE") == None:# and isDebug is False:
         log("Trying to find ComfyUI folder using know locations")
         knownComfyLocations= [
-            "/workspace/runpod-slim"
+            "/workspace/runpod-slim",
             "/workspace",
         ] # TODO Are there more locations? 
 
@@ -70,9 +70,14 @@ def config(isDebug = False):
                 break
         else:
             log("Workspace not found! Please select workspace folder! (The folder containing ComfyUI folder)")
-            selectedFolder = __FolderPickerApp().run()
+            if isDebug:
+                selectedFolder = "/workspaceDEBUG"
+            else:
+                selectedFolder = __FolderPickerApp().run()
             os.environ["WORKSPACE"] =  str(selectedFolder)
-            pass
+
+        log(os.getenv("WORKSPACE"))
+        pass
         
 
     
@@ -96,6 +101,7 @@ def config(isDebug = False):
     
 if __name__ == "__main__":
     c = config(isDebug=True)
+    d = config(isDebug=True)
     pass
 
 
