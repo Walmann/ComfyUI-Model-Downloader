@@ -60,8 +60,8 @@ def config(isDebug = False):
     if not os.getenv("WORKSPACE") == "" and isDebug is False:
         log("Trying to find ComfyUI folder using know locations")
         knownComfyLocations= [
-            "/workspace",
             "/workspace/runpod-slim"
+            "/workspace",
         ] # TODO Are there more locations? 
 
         for d in knownComfyLocations:
@@ -88,7 +88,7 @@ def config(isDebug = False):
     #     config.write(configfile)
 
     if isDebug:
-        config.set("Paths","WORKSPACE",str(Path("/workspace")))
+        config.set("Paths","WORKSPACE",str(Path("/workspaceDEBUG")))
 
     return config
 
