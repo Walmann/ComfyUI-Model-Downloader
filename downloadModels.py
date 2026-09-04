@@ -13,14 +13,14 @@ class MultiSelectApp(App):
             Selection("MiniMax H3", "MiniMaxH3"),
             Selection("Krea 2", "Krea2"),
         )
-        yield Button("Kjør videre", variant="primary", id="run")
+        yield Button("Continue", variant="primary", id="run")
     def on_selection_list_selected_changed(self, event: SelectionList.SelectedChanged) -> None:
         self.sub_title = str(event.selection_list.selected)
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         # Hent alle valgte verdier
         selected: list[str] = self.query_one(SelectionList).selected
-        print(f"Valgte elementer: {selected}")  # f.eks. ['apple', 'cherry']
+        print(f"Chosen models: {selected}")  # f.eks. ['apple', 'cherry']
         self.exit(selected )
     
 
