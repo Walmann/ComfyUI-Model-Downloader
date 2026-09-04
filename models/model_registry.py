@@ -76,6 +76,11 @@ def model_registry():
                 "path": "text_encoders/qwen3vl_4b_fp8_scaled.safetensors",
                 "subdir": "text_encoders",
             },
+            "Huihui-Qwen3-VL-4B-Instruct-abliterated-fp8_scaled.safetensors": {
+                "repo": "ahmed22xa/Huihui-Qwen3-VL-4B-Instruct-abliterated-comfy",
+                "path": "Huihui-Qwen3-VL-4B-Instruct-abliterated-fp8_scaled.safetensors",
+                "subdir": "text_encoders",
+            },
             "qwen_image_vae.safetensors": {
                 "repo": "Comfy-Org/Krea-2",
                 "path": "vae/qwen_image_vae.safetensors",
