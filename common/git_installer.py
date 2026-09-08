@@ -15,12 +15,16 @@ def _Clone(repo:str, dir:Path):
     return repo_dir
 
 def _Update(dir:Path):
-    r = Repo(dir)
-    origin = r.remotes.origin
-    origin.pull()
-    log("Update complete")
-    repo_dir = r
-    return repo_dir
+    try:
+        r = Repo(dir)
+        origin = r.remotes.origin
+        origin.pull()
+        log("Update complete")
+        repo_dir = r
+        return repo_dir
+    except Exception as e:
+        log("ERROR UPDATING NODE!", "ERROR")
+        log(e)
 
 
 def install(repo:str, dir:Path):
