@@ -1,6 +1,8 @@
 import os
 import configparser
 import sys
+import traceback
+
 
 from nodes import Install_nodes, get_repo_section
 from common import log
@@ -31,6 +33,7 @@ def modelInstaller(modelList: list, settings: configparser.ConfigParser, dryRun=
         except Exception as e:
             log(f"ERROR INSTALLING MODEL {m}", "ERROR")
             log(e)
+            traceback.print_exc()
             sys.exit()
 
 if __name__ == "__main__":
