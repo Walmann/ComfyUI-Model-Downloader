@@ -28,7 +28,7 @@ def hugginface_downloadModel(model: str, settings:ConfigParser, dryRun=False):
         # temp = str(Path(settings["Paths"]["COMFYUI_MODELS_DIR"], subdir, model))
         model_dir = str(Path(settings["Paths"]["COMFYUI_MODELS_DIR"], subdir, model))
 
-        log(f"Model is being downloaded to: {model_dir}", "DEBUG")
+        log(f"Model is being downloaded to: {model_dir}/{name}", "DEBUG")
         dryRun_results = huggingface_hub.hf_hub_download(repo_id=repo, filename=path, local_dir=model_dir, dry_run=dryRun)
         if dryRun:
             log("DryRun results: ", "DEBUG")
