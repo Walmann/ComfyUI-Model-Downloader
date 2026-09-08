@@ -64,6 +64,11 @@ def model_registry():
                 "path": "vae_approx/taeh3.safetensors",
                 "subdir": "vae_approx",
             },
+            "minimax_h3_turbo_v4_step600_ema.safetensors": {
+                "repo": "larryvrh/MiniMax-H3-Turbo-Lora",
+                "path": "minimax_h3_turbo_v4_step600_ema.safetensors",
+                "subdir": "loras",
+            },
         },
         "Krea2": {
             "krea2_turbo_fp8_scaled.safetensors": {
