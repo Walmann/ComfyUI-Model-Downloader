@@ -8,27 +8,43 @@ from pathlib import Path
 # from common.log import log
 
 
-def node_registry():
-    config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
-    # Add sections and key-value pairs
-    config.add_section('Default') 
-    config.set("Default",'KJNodes', "https://github.com/kijai/ComfyUI-KJNodes.git")
-    config.set("Default", "rgThree", "https://github.com/rgthree/rgthree-comfy.git")
-    config.set("Default", "VideoHelperSuite", "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git")
-    
-    
-    config.add_section('MiniMaxH3') 
-    config.set("MiniMaxH3", "Spectrum", "https://github.com/xmarre/ComfyUI-Spectrum-MiniMax-H3.git")
-    config.set("MiniMaxH3", "MiniMaxRefsPack", "https://github.com/Hearmeman24/ComfyUI-MiniMaxRefPack.git")
-    
-    return config
+def node_registry(category:str):
+    models: dict = {
+        "Default": {
+            "ComfyUI-KJNodes": {
+                "name": "ComfyUI-KJNodes",
+                "repo": "https://github.com/kijai/ComfyUI-KJNodes.git",
+                "subdir": "ComfyUI-KJNodes"
+            },
+            "ComfyUI-VideoHelperSuite": {
+                "name": "ComfyUI-VideoHelperSuite",
+                "repo": "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git",
+                "subdir": "ComfyUI-VideoHelperSuite"
+            },
+            "rgthree-comfy": {
+                "name": "rgthree-comfy",
+                "repo": "https://github.com/rgthree/rgthree-comfy.git",
+                "subdir": "rgthree-comfy"
+            },
+        },
+        "MiniMaxH3": {
+            "ComfyUI-Spectrum-MiniMax-H3": {
+                "name": "ComfyUI-Spectrum-MiniMax-H3",
+                "repo": "https://github.com/xmarre/ComfyUI-Spectrum-MiniMax-H3.git"
+            },
+            # "krea2_turbo_fp8_scaled.safetensors": {
+            #     "repo": "https://github.com/xmarre/ComfyUI-Spectrum-MiniMax-H3.git"
+            # },
+        },
+    }
+   
+    return models[category]
 
 
 if __name__ == "__main__":
-    conf = node_registry()
-    conf1 = conf["Default"]
-    conf2 = conf1.get_sec
-    for key in conf["Default"]:
-        print(key)
+    conf = node_registry("Default")
+    for key in conf:
+        print(str(key, conf[key]))
 
 pass
+

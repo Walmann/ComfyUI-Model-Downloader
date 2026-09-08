@@ -18,7 +18,7 @@ def modelInstaller(modelList: list, settings: configparser.ConfigParser, dryRun=
         try:
             try:      
                 log(f"Installing {m}")
-                nodes = get_repo_section(m)
+                nodes: dict = get_repo_section(m)
                 Install_nodes(settings=setting, nodes=nodes)
             except KeyError as e: 
                 log(f"Could not find {m} in node database! This is fine.")

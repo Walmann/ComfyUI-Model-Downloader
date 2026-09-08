@@ -14,27 +14,25 @@ from nodes import node_registry
 
 
 ### Install nodes
-def Install_node(settings: ConfigParser, node_info:str):
+def Install_node(settings: ConfigParser, node_info:dict):
 
-    log(f"Installing node {node_info[0]}")
-    repo: Repo = git_installer.install(repo=node_info[1], dir=Path(settings["Paths"]["COMFYUI_NODES_DIR"]))
+    log(f"Installing node {node_info["name"]}")
+    repo: Repo = git_installer.install(repo=node_info["repo"], dir=Path(settings["Paths"]["COMFYUI_NODES_DIR"], node_info["name"])) # type: ignore # , node_folder=node_info["name"])
 
     log(f"Installing requirements for node: {node_info[0]}")
     requirements = Path(repo.working_dir, "\\requirements.txt")
     pipInstall_file(req_file=requirements)
     pass
 
-def Install_nodes(settings:ConfigParser, nodes: list):
+def Install_nodes(settings:ConfigParser, nodes: dict):
     for node in nodes:
-        Install_node(settings=settings, node_info=node)
+        n = nodes[node]
+        Install_node(settings=settings, node_info=nodes[node])
     pass
 
 def get_repo_section(section: str):
-    r = node_registry()
-    nodelist = []
-    for key in r[section]:
-        nodelist.append([key, r[section][key]])
-    return nodelist
+    r: dict = node_registry(section)
+    return r
 
 
 # For testing this script:
@@ -46,7 +44,7 @@ if __name__ == "__main__":
 
     # Install multiple nodes:
     node_list = get_repo_section("Default")
-    setting = config()
+    setting = config(isDebug=True)
     Install_nodes(settings=setting, nodes=node_list)
 
     pass

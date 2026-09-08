@@ -27,7 +27,8 @@ def _Update(dir:Path):
         traceback.print_exc()
 
 
-def install(repo:str, dir:Path):
+def install(repo:str, dir:Path): #, node_folder:str):
+    # dir = Path(node_dir, node_folder)
     if isdir(dir):
         log("Found existing folder. Will now try to update.")
         return _Update(dir)
