@@ -2,7 +2,7 @@
 from git import Repo
 from pathlib import Path
 from os.path import isdir
-
+import traceback
 
 from .log import log
 # from settings import Config
@@ -24,7 +24,7 @@ def _Update(dir:Path):
         return repo_dir
     except Exception as e:
         log("ERROR UPDATING NODE!", "ERROR")
-        print(e)
+        traceback.print_exc()
 
 
 def install(repo:str, dir:Path):
