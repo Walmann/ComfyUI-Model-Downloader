@@ -53,7 +53,9 @@ def config(isDebug = False):
     config.set("Ports","JUPYTER_PORT", os.getenv("JUPYTER_PORT", "8888"))
 
 
-    
+    if isDebug:
+        os.environ["WORKSPACE"] = str(Path("/workspaceDEBUG"))
+            # config.set("Paths","WORKSPACE",str(Path("/workspaceDEBUG")))
 
     # Set workspace dir. 
     if os.getenv("WORKSPACE") == None:# and isDebug is False:
@@ -91,8 +93,7 @@ def config(isDebug = False):
     # with open('config.ini', 'w') as configfile:
     #     config.write(configfile)
 
-    if isDebug:
-        config.set("Paths","WORKSPACE",str(Path("/workspaceDEBUG")))
+    
 
     return config
 
