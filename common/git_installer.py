@@ -24,7 +24,7 @@ def _Update(dir:Path):
         return repo_dir
     except Exception as e:
         log("ERROR UPDATING NODE!", "ERROR")
-        log(e)
+        print(e)
 
 
 def install(repo:str, dir:Path):
